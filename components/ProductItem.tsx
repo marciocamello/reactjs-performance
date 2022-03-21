@@ -5,6 +5,7 @@ interface ProductItemProps {
         id: number;
         title: string;
         price: number;
+        priceFormatted: string;
     };
     onAddToWichList: (id: number) => void;
 }
@@ -12,7 +13,7 @@ interface ProductItemProps {
 function ProductItemComponent({ product, onAddToWichList }: ProductItemProps) {
     return (
         <div>
-            {product.title} - <strong>{product.price}</strong>
+            {product.title} - <strong>{product.priceFormatted}</strong>
             <button onClick={() => onAddToWichList(product.id)}>Add to wich list</button>
         </div>
     )

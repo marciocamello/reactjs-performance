@@ -1,19 +1,17 @@
-import { useMemo } from "react";
 import { ProductItem } from "./ProductItem";
 
 interface SearchResultsProps {
+    totalPrice: number;
     results: Array<{
         id: number;
         title: string;
         price: number;
+        priceFormatted: string;
     }>;
     onAddToWichList: (id: number) => void;
 }
 
-export function SearchResults({ results, onAddToWichList }: SearchResultsProps) {
-    const totalPrice = useMemo(() => {
-        return results.reduce((acc, product) => acc + product.price, 0)
-    }, [results]);
+export function SearchResults({ results, totalPrice, onAddToWichList }: SearchResultsProps) {
 
     return (
         <div>
