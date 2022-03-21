@@ -1,4 +1,12 @@
-import { memo } from "react";
+import dynamic from "next/dynamic";
+import { memo, useState } from "react";
+import { AddProductToWishListProps } from "./AddProductToWishList";
+
+const AddProductToWishList = dynamic<AddProductToWishListProps>(() => {
+    return import("./AddProductToWishList").then(module => module.AddProductToWishList);
+}, {
+    loading: () => <span>Loading...</span>
+});
 
 interface ProductItemProps {
     product: {
@@ -11,10 +19,25 @@ interface ProductItemProps {
 }
 
 function ProductItemComponent({ product, onAddToWichList }: ProductItemProps) {
+    const [showAddToWishList, setShowAddToWishList] = useState(false);
+
+    async function showFormattedDate() {
+        //const {format} = await import('./formattedDate.js');
+        //const formattedDate = format(new Date());
+        //console.log(formattedDate);
+    }
+
     return (
         <div>
             {product.title} - <strong>{product.priceFormatted}</strong>
-            <button onClick={() => onAddToWichList(product.id)}>Add to wich list</button>
+            <button onClick={() => setShowAddToWishList(true)}>Add to wish list</button>
+
+            {showAddToWishList && (
+                <AddProductToWishList
+                    onAddToWishList={() => onAddToWichList(product.id)}
+                    onRequestClose={() => setShowAddToWishList(false)}
+                />
+            )}
         </div>
     )
 }
