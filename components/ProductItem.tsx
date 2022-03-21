@@ -2,16 +2,18 @@ import { memo } from "react";
 
 interface ProductItemProps {
     product: {
-        id: string;
+        id: number;
         title: string;
         price: number;
-    }
+    };
+    onAddToWichList: (id: number) => void;
 }
 
-function ProductItemComponent({ product }: ProductItemProps) {
+function ProductItemComponent({ product, onAddToWichList }: ProductItemProps) {
     return (
         <div>
             {product.title} - <strong>{product.price}</strong>
+            <button onClick={() => onAddToWichList(product.id)}>Add to wich list</button>
         </div>
     )
 }
